@@ -21,6 +21,7 @@
                     <input class="row w-100 m-2" type="text" id="resolver" name="resolver" placeholder="Resolver Url" value="https://vicic8484.ddns.net:444" onchange="resolverUrl = document.getElementById('resolver').value">
                     <label for="delais">Delais (ms)</label>
                     <input type="number" id="delais" name="delais" value="1000" onchange="UpdateDelais()">
+                    <input type="checkbox" id="random" name="random" value="random" onchange="UpdateDelais()">
                     <div class = "row">
                         <p id="TTrequests"> 0 requêtes faites</p>
                     </div>
@@ -91,7 +92,11 @@
         }
 
         function UpdateDelais() {
-            delais = document.getElementById("delais").value;
+            delais = Number(document.getElementById("delais").value);
+            if(document.getElementById("random").checked){
+                delais = delais + getRandomInt(delais)-getRandomInt(delais);
+                setTimeout(UpdateDelais, 30000);
+            }
         }
 
         function StartStop() {
